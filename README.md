@@ -18,7 +18,8 @@ PS: The name Fuxt comes from [Funkhaus](https://funkhaus.us) and Nuxt. [It's pro
     - ❌ See https://github.com/Gomah/nuxt-graphql-request/issues/36
     - Consider: https://nuxt.com/modules/graphql-client
 - [ ] WordPress previews?
-    - `useRoute().query` in a plugin for `preview`?
+    - Can we use `useRoute().query` in a plugin for `preview`?
+    - Then use it to convert this: https://github.com/funkhaus/fuxt/blob/master/plugins/preview.client.js
 - [ ] How do we want to use SVGs?
     - https://github.com/cpsoinos/nuxt-svgo/
     - See https://github.com/cpsoinos/nuxt-svgo/issues/85
@@ -35,7 +36,7 @@ PS: The name Fuxt comes from [Funkhaus](https://funkhaus.us) and Nuxt. [It's pro
         - See https://nuxt.com/docs/getting-started/state-management
         - See https://www.npmjs.com/package/@pinia/nuxt
 - [ ] What about Google Anayltics?
-    - Upgrade our custom plugin?
+    - Upgrade our custom plugin? https://github.com/funkhaus/fuxt/blob/master/plugins/google-gtag.client.js
     - See https://nuxt.com/docs/guide/directory-structure/plugins#vue-plugins
 - [ ] Need a Sitemap.xml file?
     - ❌ See https://github.com/nuxt-community/sitemap-module/issues/246
@@ -45,4 +46,4 @@ PS: The name Fuxt comes from [Funkhaus](https://funkhaus.us) and Nuxt. [It's pro
 
 - [ ] What about loading directives globally?
 - [ ] What about GeoIP detection?
-    - Convert our custom plugin script?
+    - Convert our custom plugin? https://github.com/funkhaus/fuxt/blob/master/plugins/ip-geolocate.js
