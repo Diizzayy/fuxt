@@ -18,7 +18,8 @@ PS: The name Fuxt comes from [Funkhaus](https://funkhaus.us) and Nuxt. [It's pro
     - ❌ See https://github.com/Gomah/nuxt-graphql-request/issues/36
     - Consider: https://nuxt.com/modules/graphql-client
 - [ ] How to handle CMS previews?
-    - Can we use `useRoute().query` in a plugin for `preview`?
+    - ❌ How to use `enablePreview` in a plugin? Or Nuxt3 way to do this?
+    - Can we use `useRoute().query` in a plugin for `preview=true` in URL?
     - Then use it to convert this: https://github.com/funkhaus/fuxt/blob/master/plugins/preview.client.js
 - [ ] How do we want to use SVGs?
     - https://github.com/cpsoinos/nuxt-svgo/
