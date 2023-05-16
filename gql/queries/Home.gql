@@ -7,9 +7,18 @@ query Home($uri: String!) {
         ... on Page {
             title
             id
-            # workMeta {
-            #     videoUrl
-            # }
+            workMeta {
+                videoUrl
+                # talentRelationship {
+                #     nodes {
+                #         id
+                #         ... on Page {
+                #             title
+                #             to: uri
+                #         }
+                #     }
+                # }
+            }
             featuredImage {
                 node {
                     ...MediaImage

@@ -67,7 +67,7 @@ export const actions = {
         // Get site settings from WordPress and save them to store
         try {
             const data = await this.$graphql.default.request(SITE_SETTINGS)
-            const options = data.acfSettings?.siteOptions || {}
+            const options = data.acfSettings?.siteOptionsMeta || {}
 
             // Get and shape general settings
             const settings = data.wpSettings || {}
@@ -87,7 +87,7 @@ export const actions = {
                 delete options.googleAnalytics
             }
             options.socialSharedImage =
-                options.socialSharedImage?.sourceUrl || ""
+                options.socialSharedImage?.node?.sourceUrl || ""
             const siteMeta = { ...meta, ...options }
             commit("SET_SITE_META", siteMeta)
             return siteMeta

@@ -17,7 +17,7 @@ query NewsList($categoryName: String, $first: Int = 10, $after: String) {
             id
             uri
             title
-            encodedContent
+            #encodedContent
             date
             featuredImage {
                 node {

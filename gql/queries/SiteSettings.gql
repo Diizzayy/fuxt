@@ -9,7 +9,7 @@ query SiteSettings {
     }
     # NOTE You need ACF Pro installed to use Site Options
     acfSettings: siteOptions {
-        siteOptions {
+        siteOptionsMeta {
             socialMedia {
                 platform
                 url
@@ -18,7 +18,10 @@ query SiteSettings {
                 code
             }
             socialSharedImage {
-                sourceUrl(size: SOCIAL_PREVIEW)
+                node {
+                    id
+                    sourceUrl(size: SOCIAL_PREVIEW)
+                }
             }
         }
     }
