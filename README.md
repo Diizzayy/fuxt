@@ -40,8 +40,7 @@ PS: The name Fuxt comes from [Funkhaus](https://funkhaus.us) and Nuxt. [It's pro
     - Upgrade our custom plugin? https://github.com/funkhaus/fuxt/blob/master/plugins/google-gtag.client.js
     - See https://nuxt.com/docs/guide/directory-structure/plugins#vue-plugins
 - [ ] Need a Sitemap.xml file?
-    - ❌ See https://github.com/nuxt-community/sitemap-module/issues/246
-    - Consider: [https://github.com/funkenstudio/sitemap-module-nuxt-3](https://github.com/harlan-zw/nuxt-simple-sitemap)
+    - See: [https://github.com/funkenstudio/sitemap-module-nuxt-3](https://github.com/harlan-zw/nuxt-simple-sitemap)
 
 ### Nice to haves
 
