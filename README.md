@@ -31,6 +31,7 @@ PS: The name Fuxt comes from [Funkhaus](https://funkhaus.us) and Nuxt. [It's pro
     - See https://stackoverflow.com/a/70273538/503546
 - [ ] Storybook
     - ❌ See https://github.com/nuxt-community/storybook/issues/330
+    - See for an option: https://storybook.js.org/addons/storybook-addon-nuxt
 - [ ] Default store settings?
     - [ ] Can we port over this? https://github.com/funkhaus/fuxt/blob/master/plugins/performant-events.client.js
     - Pina or useState?
