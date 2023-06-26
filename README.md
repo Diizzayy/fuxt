@@ -22,6 +22,7 @@ PS: The name Fuxt comes from [Funkhaus](https://funkhaus.us) and Nuxt. [It's pro
     - Can we use `useRoute().query` in a plugin for `preview=true` in URL?
     - Then use it to convert this: https://github.com/funkhaus/fuxt/blob/master/plugins/preview.client.js
 - [ ] How do we want to use SVGs?
+    - Does this work? https://github.com/jpkleemans/vite-svg-loader
     - https://github.com/cpsoinos/nuxt-svgo/
     - See https://github.com/cpsoinos/nuxt-svgo/issues/85
 - [ ] How do we want to use custom fonts?
