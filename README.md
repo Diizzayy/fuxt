@@ -17,6 +17,7 @@ PS: The name Fuxt comes from [Funkhaus](https://funkhaus.us) and Nuxt. [It's pro
 - [ ] Install a GraphQL request library
     - ❌ See https://github.com/Gomah/nuxt-graphql-request/issues/36
     - Consider: https://nuxt.com/modules/graphql-client
+    - Build our own? https://dev.to/jacobandrewsky/introduction-to-nuxt-modules-revisited-3iaf
 - [ ] How to handle CMS previews?
     - ❌ How to use `enablePreview` in a plugin? Or Nuxt3 way to do this?
     - Can we use `useRoute().query` in a plugin for `preview=true` in URL?
