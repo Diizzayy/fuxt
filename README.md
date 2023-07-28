@@ -19,21 +19,23 @@ PS: The name Fuxt comes from [Funkhaus](https://funkhaus.us) and Nuxt. [It's pro
     - Consider: https://nuxt.com/modules/graphql-client
     - Build our own? https://dev.to/jacobandrewsky/introduction-to-nuxt-modules-revisited-3iaf
 - [ ] How to handle CMS previews?
-    - ❌ How to use `enablePreview` in a plugin? Or Nuxt3 way to do this?
+    - 🟡 How to use `enablePreview` in a plugin? Or Nuxt3 way to do this?
     - Can we use `useRoute().query` in a plugin for `preview=true` in URL?
     - Then use it to convert this: https://github.com/funkhaus/fuxt/blob/master/plugins/preview.client.js
-- [ ] How do we want to use SVGs?
+    - See this for pending solution: https://github.com/nuxt/nuxt/pull/21705
+- [x] How do we want to use SVGs?
     - Does this work? https://github.com/jpkleemans/vite-svg-loader
     - https://github.com/cpsoinos/nuxt-svgo/
     - See https://github.com/cpsoinos/nuxt-svgo/issues/85
-- [ ] How do we want to use custom fonts?
+- [x] How do we want to use custom fonts?
     - See https://nuxt.com/modules/fontaine
 - [ ] What about SCSS or PostCSS?
     - SCSS is better IMHO (better nesting syntax, media query as variables)
     - See https://stackoverflow.com/a/70273538/503546
 - [ ] Storybook
-    - ❌ See https://github.com/nuxt-community/storybook/issues/330
+    - 🟡 See https://github.com/nuxt-community/storybook/issues/330
     - See for an option: https://storybook.js.org/addons/storybook-addon-nuxt
+    - See for an option: https://github.com/storybook-vue/nuxt
 - [ ] Default store settings?
     - [ ] Can we port over this? https://github.com/funkhaus/fuxt/blob/master/plugins/performant-events.client.js
     - Pina or useState?
@@ -42,7 +44,7 @@ PS: The name Fuxt comes from [Funkhaus](https://funkhaus.us) and Nuxt. [It's pro
 - [ ] What about Google Anayltics?
     - Upgrade our custom plugin? https://github.com/funkhaus/fuxt/blob/master/plugins/google-gtag.client.js
     - See https://nuxt.com/docs/guide/directory-structure/plugins#vue-plugins
-- [ ] Need a Sitemap.xml file?
+- [x] Need a Sitemap.xml file?
     - See: [https://github.com/funkenstudio/sitemap-module-nuxt-3](https://github.com/harlan-zw/nuxt-simple-sitemap)
 
 ### Nice to haves
