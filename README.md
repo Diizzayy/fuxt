@@ -14,10 +14,8 @@ PS: The name Fuxt comes from [Funkhaus](https://funkhaus.us) and Nuxt. [It's pro
 
 - [ ] Install Nuxt3
     - Not going to use TypeScript 
-- [ ] Install a GraphQL request library
-    - ❌ See https://github.com/Gomah/nuxt-graphql-request/issues/36
-    - Consider: https://nuxt.com/modules/graphql-client
-    - Build our own? https://dev.to/jacobandrewsky/introduction-to-nuxt-modules-revisited-3iaf
+- [x] Install a GraphQL request library
+  - ✅ See https://github.com/Gomah/nuxt-graphql-request
 - [ ] How to handle CMS previews?
     - 🟡 How to use `enablePreview` in a plugin? Or Nuxt3 way to do this?
     - Can we use `useRoute().query` in a plugin for `preview=true` in URL?
@@ -32,9 +30,8 @@ PS: The name Fuxt comes from [Funkhaus](https://funkhaus.us) and Nuxt. [It's pro
 - [ ] What about SCSS or PostCSS?
     - SCSS is better IMHO (better nesting syntax, media query as variables)
     - See https://stackoverflow.com/a/70273538/503546
-- [ ] Storybook
-    - 🟡 See https://github.com/nuxt-community/storybook/issues/330
-    - See for an option: https://storybook.js.org/addons/storybook-addon-nuxt
+- [x] Storybook
+  - https://storybook.js.org/addons/storybook-addon-nuxt
     - See for an option: https://github.com/storybook-vue/nuxt
 - [ ] Default store settings?
     - [ ] Can we port over this? https://github.com/funkhaus/fuxt/blob/master/plugins/performant-events.client.js
@@ -52,3 +49,5 @@ PS: The name Fuxt comes from [Funkhaus](https://funkhaus.us) and Nuxt. [It's pro
 - [ ] What about loading directives globally?
 - [ ] What about GeoIP detection?
     - Convert our custom plugin? https://github.com/funkhaus/fuxt/blob/master/plugins/ip-geolocate.js
+- use this instead of Prettier: eslint.style
+
