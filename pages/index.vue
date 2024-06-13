@@ -14,9 +14,10 @@
 
 <script>
 // Queries
-import HOME from "~/gql/queries/Home"
+import HOME from "~/gql/queries/Home.gql"
 
 export default {
+    name: "HomePage", // Renamed the component to "HomePage"
     async asyncData({ $graphql, route }) {
         const data = await $graphql.default.request(HOME, {
             uri: route.path

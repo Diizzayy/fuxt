@@ -1,19 +1,31 @@
-export default ({ store, app: { router, context } }, inject) => {
+import { defineNuxtPlugin } from "#app"
+import { useStateStore } from "~/store/index.mjs"
+
+export default defineNuxtPlugin(({ vueApp: {
+    $nuxt: {
+        $router,
+        $inject,
+    },
+    
+}}) => {
+
+    const store = useStateStore()
+    
     // Remove any empty tracking codes
-    let codes = store?.state?.siteMeta?.gaTrackingCodes || []
+    let codes = store?.siteMeta?.gaTrackingCodes || []
     codes = codes.filter(Boolean)
 
     // Abort if no codes
     if (!codes.length) {
-        if (context.isDev) console.log("No Google Anlaytics tracking codes set")
-        inject("gtag", () => {})
+        if (import.meta.dev) console.log("No Google Anlaytics tracking codes set")
+        $inject("gtag", () => { })
         return
     }
 
     // Abort if in Dev mode, but inject dummy functions so $gtag events don't throw errors
-    if (context.isDev) {
+    if (import.meta.dev) {
         console.log("No Google Anlaytics tracking becuase your are in Dev mode")
-        inject("gtag", () => {})
+        $inject("gtag", () => { })
         return
     }
 
@@ -31,11 +43,12 @@ export default ({ store, app: { router, context } }, inject) => {
     document.head.appendChild(script)
 
     // Include Google gtag code and inject it (so this.$gtag works in pages/components)
-    window.dataLayer = window.dataLayer || []
+    const dataLayer = window.dataLayer || []
     function gtag() {
         dataLayer.push(arguments)
     }
-    inject("gtag", gtag)
+
+    $inject("gtag", gtag)
     gtag("js", new Date())
 
     // Add tracking codes from Vuex store
@@ -45,8 +58,9 @@ export default ({ store, app: { router, context } }, inject) => {
         })
 
         // After each router transition, log page event to Google for each code
-        router.afterEach((to) => {
+        $router.afterEach((to) => {
             gtag("event", "page_view", { page_path: to.fullPath })
         })
     })
-}
+
+})

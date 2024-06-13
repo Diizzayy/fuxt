@@ -25,13 +25,14 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 // Helpers
 import getStripped from "~/utils/getStripped"
 
 // Queries
 import WP_SEO from "~/gql/queries/WpSeo.gql"
-
+import { useStateStore } from "~/store/index.mjs"
+const store = useStateStore()
 export default {
     props: {
         title: {
@@ -140,7 +141,7 @@ export default {
                 output = this.data.name || ""
             }
             if (!output) {
-                output = this.$store.state.siteMeta.title || undefined
+                output = store.siteMeta.title || undefined
             }
 
             return output

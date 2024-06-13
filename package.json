@@ -4,6 +4,7 @@
     "engines": {
         "node": "18.x"
     },
+    "type": "module",
     "engineStrict": false,
     "description": "A Vue/Nuxt frontend boilerplate optimzed to work with the fuxt-backend WordPress theme.",
     "author": "Funkhaus",
@@ -16,32 +17,42 @@
         "storybook-build": "nuxt storybook build",
         "generate": "nuxt generate"
     },
-    "dependencies": {
-        "nuxt": "^2.17.0"
-    },
     "devDependencies": {
-        "@nuxtjs/sitemap": "^2.4.0",
-        "@nuxtjs/storybook": "^4.3.2",
-        "@nuxtjs/style-resources": "^1.2.1",
-        "@wordpress/autop": "^3.36.0",
+        "@nuxt/webpack-builder": "^3.12.1",
+        "@nuxtjs/sitemap": "^5.2.0",
+        "@nuxtjs/storybook": "^8.1.1",
+        "@nuxtjs/style-resources": "^2.0.0",
+        "@pinia/nuxt": "^0.5.1",
+        "@types/vue": "^2.0.0",
+        "@types/webfontloader": "^1.6.38",
+        "@wordpress/autop": "^4.0.0",
         "core-js": "^3.31.0",
-        "eslint": "^8.43.0",
-        "eslint-config-prettier": "^8.8.0",
+        "eslint": "^9.4.0",
+        "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-vue": "^9.15.1",
-        "graphql": "^15.8.0",
+        "graphql": "^16.8.2",
         "graphql-tag": "^2.12.6",
         "lodash": "^4.17.21",
         "nodemon": "^2.0.22",
-        "nuxt-graphql-request": "^6.0.3",
-        "prettier": "^2.8.8",
+        "nuxt": "^3.12.1",
+        "nuxt-graphql-request": "^8.0.2",
+        "nuxt-svgo": "^4.0.1",
+        "prettier": "^3.3.2",
         "sass": "^1.63.6",
-        "sass-loader": "^10.2.1",
-        "vue-svg-loader": "^0.16.0",
-        "vue-template-compiler": "^2.6.12",
+        "sass-loader": "^14.2.1",
+        "vue-svg-loader": "^0.17.0-beta.2",
+        "vue-template-compiler": "^2.7.16",
         "webfontloader": "^1.6.28",
-        "webpack": "^4.46.0"
+        "webpack": "^5.92.0"
     },
     "comments": {
         "devDependencies": "Graphql can't go past v15"
+    },
+    "dependencies": {
+        "@types/lodash": "^4.17.5",
+        "pinia": "^2.1.7",
+        "svgo-loader": "^4.0.0",
+        "vue": "^3.4.27",
+        "vue-router": "^4.3.3"
     }
 }

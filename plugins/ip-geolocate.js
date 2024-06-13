@@ -1,6 +1,14 @@
-export default async ({ store, req, query, isDev, $config }) => {
+import { defineNuxtPlugin } from "#app"
+
+export default defineNuxtPlugin( async ({ store, req, $config, ssrContext  }) => {
     // Set to true to check all users IPs. This is useful for debugging.
-    const forceCheck = query.ip || false // DO NOT LEAVE TRUE AS IT WILL COST MONEY
+    ssrContext.event._path
+    // console.log("IP Geolocate plugin running")    
+    // console.log("ssrContext.event._path", ssrContext.event._path)
+
+    const forceCheck = false // DO NOT LEAVE TRUE AS IT WILL COST MONEY
+    // console.log("IP Geolocate plugin after running")
+
     let endpoint = "check"
 
     // Give warning if forcing check to IP stack
@@ -29,7 +37,7 @@ export default async ({ store, req, query, isDev, $config }) => {
     }
 
     // If this is running server side (and not static generation), get users country and IP from server headers if possible
-    if (process.server && !process.static) {
+    if (import.meta.server && !import.meta.dev) {
         const headers = req.headers
 
         location.detectedCountry =
@@ -50,14 +58,14 @@ export default async ({ store, req, query, isDev, $config }) => {
 
     // Allow manual IP override for testing
     // 93.37.80.33 is in Italy and 72.229.28.185 is in US and 101.167.187.25 is in the UK
-    if (query.ip) {
-        endpoint = query.ip
-    }
+    // if (query.ip) {
+    //     endpoint = query.ip
+    // }
 
     // Hit the IP Stack API if no country known yet
     // If we get client side, and still no country, then try again
     // This logic is to protect agaisnt running during static generation build
-    const runCheck = process.client && !location.detectedCountry
+    const runCheck = import.meta.client && !location.detectedCountry
     if (forceCheck || runCheck) {
         // SEE for more options: https://ipstack.com/documentation/#requester
         const res = await fetch(
@@ -93,4 +101,4 @@ export default async ({ store, req, query, isDev, $config }) => {
         detectedCountry: location.detectedCountry || "",
         selectedRegion: ""
     })
-}
+})

@@ -9,7 +9,7 @@
 
 <script>
 // Queries
-import HOME from "~/gql/queries/Home"
+import HOME from "~/gql/queries/Home.gql"
 
 export default {
     async asyncData({ $graphql, route }) {

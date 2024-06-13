@@ -25,10 +25,10 @@
     </component>
 </template>
 
-<script>
-import _unescape from "lodash/unescape"
+<script lang="ts">
+import _unescape from "lodash/unescape.js"
 
-export default {
+export default defineNuxtComponent({
     props: {
         to: {
             type: String,
@@ -120,5 +120,5 @@ export default {
             }
         }
     }
-}
+})
 </script>

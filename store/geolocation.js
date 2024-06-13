@@ -21,6 +21,7 @@ export const mutations = {
             state.selectedRegion = data
         } else {
             // Else set entire geolocation object
+            console.log("Setting geolocation", data);
             state.ip = data.ip || state.ip
             state.detectedCountry =
                 data.detectedCountry || state.detectedCountry

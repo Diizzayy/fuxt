@@ -1,4 +1,5 @@
 import SITE_SETTINGS from "~/gql/queries/SiteSettings.gql"
+import { defineStore } from 'pinia'
 
 // Define State defaults
 export const state = () => ({
@@ -52,7 +53,7 @@ export const actions = {
     },
 
     async QUERY_SETTINGS({ commit }, context) {
-        if (!process.env.GQL_ENDPOINT) {
+        if (!import.meta.env.GQL_ENDPOINT) {
             throw new Error(
                 "No GQL endpoint found. You probably forgot to set the enviroment vars correctly."
             )
@@ -96,3 +97,9 @@ export const actions = {
         }
     }
 }
+
+export const useStateStore = defineStore('state', {
+    state,
+    mutations,
+    actions
+})

@@ -1,6 +1,8 @@
-export default function () {
-    this.nuxt.hook("generate:done", (context) => {
+import { defineNuxtModule } from '@nuxt/kit'
+
+export default defineNuxtModule((options, nuxt) => {
+    nuxt.hook("generate:done", (context) => {
         const routes = Array.from(context.generatedRoutes)
-        this.nuxt.options.sitemap.routes = [...routes]
+        options.sitemap.routes = [...routes]
     })
-}
+})

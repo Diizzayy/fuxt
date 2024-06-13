@@ -1,4 +1,4 @@
-import _get from "lodash/get"
+import _get from "lodash/get.js"
 import stripTags from "~/utils/stripTags"
 
 /*

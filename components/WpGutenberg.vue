@@ -12,7 +12,7 @@
 
 <script>
 // Helpers
-import _kebabCase from "lodash/kebabCase"
+import _kebabCase from "lodash/kebabCase.js"
 
 // Remove the block prefix's WordPress gives them
 function getBlockName(name = "") {

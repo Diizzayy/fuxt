@@ -43,20 +43,24 @@ function onKeydown({ store }, event) {
     }
 }
 
-export default (context, inject) => {
+import { defineNuxtPlugin } from "#app"
+import { useStateStore } from "~/store/index.mjs"
+
+export default defineNuxtPlugin(() => {
     // Avoid this running twice
     if (hasLoaded) {
         return
     }
+    const store = useStateStore()
 
     // Setup new performant events
     performantEvent("scroll").add()
     performantEvent("resize").add()
-
     // Don't do anything else if store doesn't exist (like in Storybook)
-    if (!context.store) {
+    if (!store) {
         return
     }
+    const context = { store }
 
     // Save this as it is naturally reactive
     computedStyle = window.getComputedStyle(document.body)
@@ -90,4 +94,4 @@ export default (context, inject) => {
     onResize(context)
 
     hasLoaded = true
-}
+})

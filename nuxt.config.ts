@@ -1,9 +1,12 @@
-export default {
+import { defineNuxtConfig } from 'nuxt/config'
+
+export default defineNuxtConfig({
     target: "static",
     components: true,
-    env: {
-        GQL_ENDPOINT: process.env.GQL_ENDPOINT,
-        PROXY_BASE_URL: process.env.PROXY_BASE_URL || ""
+    runtimeConfig: {
+        // Will be available in both server and client
+        GQL_ENDPOINT: '',
+        PROXY_BASE_URL: '',
     },
 
     /*
@@ -53,23 +56,23 @@ export default {
         "~/styles/themes.scss"
         //"~/styles/fonts.css" // Be sure to turn on the font loader plugin and config it
     ],
+    builder: 'webpack',
 
     /*
-     ** SCSS that is injected into every component
+     ** Build configuration
      */
-    styleResources: {
-        scss: ["~/styles/media-queries.scss"]
-    },
-
+    build: {
+        transpile: ['nuxt-graphql-request'],
+    }
+    ,
     /*
      ** Plugins to load before mounting the App
      */
     plugins: [
-        { src: "~/plugins/devtools.client.js", mode: "client" },
-        { src: "~/plugins/global-directive-loader.js" },
-        { src: "~/plugins/google-gtag.client.js", mode: "client" },
-        { src: "~/plugins/preview.client.js", mode: "client" },
-        { src: "~/plugins/performant-events.client.js", mode: "client" }
+        //{ src: "~/plugins/devtools.client.js", mode: "client" },
+        //{ src: "~/plugins/google-gtag.client.js", mode: "client" },
+        //{ src: "~/plugins/preview.client.js", mode: "client" },
+        //{ src: "~/plugins/performant-events.client.js", mode: "client" }
         //{ src: "~/plugins/web-font-loader.client.js", mode: "client" },
         //{ src: "~/plugins/ip-geolocate.js" },
     ],
@@ -77,9 +80,11 @@ export default {
     /*
      ** Nuxt.js modules
      */
-    modules: [
+    modules: [//Not compatible with Vite builder
+        "@nuxtjs/style-resources", 
+        '@pinia/nuxt',
         "~/modules/populate",
-        "@nuxtjs/sitemap"
+        "nuxt-graphql-request", //"@nuxtjs/sitemap"
         // [
         //     "nuxt-vuex-localstorage",
         //     {
@@ -87,8 +92,14 @@ export default {
         //         mode: "debug",
         //     },
         // ],
-    ],
-
+        "~/modules/sitemap-route-generator",
+        "nuxt-svgo"],
+    /*
+     ** SCSS that is injected into every component
+     */
+    styleResources: {
+        scss: ["./styles/_media-queries.scss"]
+    },
     /*
      ** Enable to use ip-geolocate plugin
      */
@@ -97,22 +108,13 @@ export default {
     // },
 
     /*
-     * Build modules
-     */
-    buildModules: [
-        "@nuxtjs/style-resources",
-        "nuxt-graphql-request",
-        "~/modules/sitemap-route-generator"
-    ],
-
-    /*
      ** GraphQL Request options.
      ** See: https://github.com/Gomah/nuxt-graphql-request
      */
     graphql: {
         clients: {
             default: {
-                endpoint: process.env.GQL_ENDPOINT,
+                endpoint: import.meta.env.GQL_ENDPOINT,
                 options: {
                     credentials: "include",
                     mode: "cors"
@@ -140,57 +142,23 @@ export default {
         { handler: "~/server-middleware/redirect-trailing-slash.js" }
         // { handler: "~/server-middleware/preview-ssr.js" },
     ],
+    hooks: {
+        'webpack:config':  (webpackConfigs) => {
+            
+            for (const config of webpackConfigs) {
 
-    /*
-     ** Build configuration
-     */
-    build: {
-        extend(config, ctx) {
-            // Remove SVG from default Nuxt webpack rules
-            const svgRule = config.module.rules.find((rule) =>
-                rule.test.test(".svg")
-            )
-            svgRule.test = /\.(png|jpe?g|gif|webp)$/i
+                config?.resolve?.extensions?.push(".gql", ".svg")
 
-            // Use SVG loader for .svg files
-            config.resolve.extensions.push(".svg")
-            config.module.rules.push({
-                test: /\.svg$/,
-                oneOf: [
-                    {
-                        // ?raw on import will give raw SVG with no optimizations.
-                        // Good if you need unaltered SVGs for animations.
-                        resourceQuery: /raw/,
-                        use: [
-                            "babel-loader",
-                            {
-                                loader: "vue-svg-loader",
-                                options: {
-                                    svgo: false
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        // ?url on import will give base64 encode SVG.
-                        // Good for use in CSS.
-                        resourceQuery: /url/,
-                        use: ["url-loader"]
-                    },
-                    {
-                        // Default SVG loader.
-                        loader: "vue-svg-loader",
-                        options: {
-                            svgo: {
-                                plugins: [{ removeViewBox: false }]
-                            }
-                        }
-                    }
-                ]
-            })
+                if (config.name === 'client') {
+                    // Modify the client webpack config
+                }
+                if (config.name === 'server') {
+                    // Modify the server webpack config
+                }
+            }
+            // console.log("webpackConfigs", webpackConfigs.map(({ name }) => name))
         }
     },
-
     /*
      ** Nuxt generate configuration. Used when generating a static site.
      */
@@ -254,4 +222,4 @@ export default {
             return config
         }
     }
-}
+})

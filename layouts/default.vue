@@ -1,4 +1,4 @@
-<template>
+<template lang="html">
     <main :class="classes">
         <!-- This helps with SEO -->
         <wp-seo />
@@ -17,7 +17,7 @@
         <nuxt
             class="page"
             keep-alive
-            :keep-alive-props="{ include: ['WpMenu', 'WpSeo'] }"
+            :keep-alive-props="keepAliveProps"
         />
 
         <!-- WordPress editor controls shown on frontend when logged in -->
@@ -27,22 +27,29 @@
     </main>
 </template>
 
-<script>
+<script lang="ts">
 // Helpers
-import _kebabCase from "lodash/kebabCase"
+import _kebabCase from "lodash/kebabCase.js"
 import metaDefaults from "~/utils/metaDefaults"
 import titleTemplate from "~/utils/titleTemplate"
+import { useStateStore } from "~/store/index.mjs"
+
+const store = useStateStore()
+
+// console.log("store", store)
 
 // Components
-import SvgLogoFunkhaus from "~/assets/svg/logo-funkhaus"
+import SvgLogoFunkhaus from "~/assets/svg/logo-funkhaus.svg"
 
-export default {
+export default defineComponent({
+    name: "LayoutDefault",
     components: {
         SvgLogoFunkhaus
     },
     data() {
         return {
-            computedStyle: {}
+            computedStyle: {},
+            keepAliveProps : { include: ['WpMenu', 'WpSeo'] }
         }
     },
     head() {
@@ -72,10 +79,10 @@ export default {
                 "layout",
                 "layout-default",
                 "main",
-                `breakpoint-${this.$store.state.breakpoint}`,
-                { "menu-opened": this.$store.state.menuOpened },
-                { "is-scrolled": this.$store.state.sTop > 0 },
-                `scrolling-${this.$store.state.scrollDirection}`
+                `breakpoint-${store.breakpoint}`,
+                { "menu-opened": store.menuOpened },
+                { "is-scrolled": store.sTop > 0 },
+                `scrolling-${store.scrollDirection}`
             ]
         },
         themeName() {
@@ -88,7 +95,7 @@ export default {
             return output
         }
     }
-}
+})
 </script>
 
 <style lang="scss">

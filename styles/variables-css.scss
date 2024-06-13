@@ -2,6 +2,7 @@
  * This file is included once, for the entire site.
  * It's useful for CSS vars
  */
+ @import './_media-queries.scss';
 
 // CSS vars
 :root {

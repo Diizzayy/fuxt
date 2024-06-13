@@ -20,7 +20,7 @@
 
 <script>
 // Helpers
-import _kebabCase from "lodash/kebabCase"
+import _kebabCase from "lodash/kebabCase.js"
 import flatListToHierarchical from "~/utils/flatListToHierarchical"
 
 // GQL

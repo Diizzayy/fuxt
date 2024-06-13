@@ -1,4 +1,4 @@
-import Vue from "vue"
+import { defineNuxtPlugin } from "#app"
 
 /*
  * Due to a bug with Storybook not showing DevTools, this is a workaround to force DevTools for all Dev enviroments.
@@ -7,6 +7,6 @@ import Vue from "vue"
  *
  * SEE https://github.com/nuxt-community/storybook/issues/403
  */
-export default function ({ isDev }) {
-    Object.assign(Vue.config, { devtools: isDev })
-}
+export default defineNuxtPlugin(( nuxt ) => {
+    nuxt.devtools = import.meta.dev
+})
