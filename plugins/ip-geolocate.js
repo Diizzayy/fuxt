@@ -2,7 +2,7 @@ import { defineNuxtPlugin } from "#app"
 
 export default defineNuxtPlugin( async ({ store, req, $config, ssrContext  }) => {
     // Set to true to check all users IPs. This is useful for debugging.
-    ssrContext.event._path
+    //ssrContext?.event._path
     // console.log("IP Geolocate plugin running")    
     // console.log("ssrContext.event._path", ssrContext.event._path)
 

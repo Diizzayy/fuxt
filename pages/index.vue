@@ -1,40 +1,36 @@
 <template>
     <section class="page-home">
-        <wp-image
-            class="image"
-            :image="parsedPage.featuredImage"
-        />
+        <wp-image class="image" :image="parsedPage?.featuredImage" />
 
-        <wp-gutenberg
-            id="content"
-            :blocks="parsedPage.blocks"
-        />
+        <wp-gutenberg id="content" :blocks="parsedPage?.blocks" />
+        <div v-html="parsedPage?.content?.rendered" />
     </section>
 </template>
 
-<script>
-// Queries
-import HOME from "~/gql/queries/Home.gql"
+<script setup lang="ts">
+//import { useNuxtApp } from '#imports';
+import type { components } from '#open-fetch-schemas/wp'
 
-export default {
-    name: "HomePage", // Renamed the component to "HomePage"
-    async asyncData({ $graphql, route }) {
-        const data = await $graphql.default.request(HOME, {
-            uri: route.path
-        })
-        return {
-            page: data.nodeByUri || {}
-        }
+const { path } = useRoute()
+
+const { data } = await useWp('/wp/v2/pages', {
+    query: {
+        path,
     },
-    computed: {
-        parsedPage() {
-            // Shape data from WP-GQL to work with template
-            return {
-                ...this.page,
-                featuredImage: this.page.featuredImage?.node || {}
-            }
-        }
-    }
+    params: {
+        _embed: true,
+    },
+    deep: true,
+})
+
+const page = (data.value as unknown as components['schemas']['page'][])[0];
+
+console.log('page', page);
+console.log('page._embedded', page?._embedded);
+
+const parsedPage = {
+    ...page,
+    featuredImage: page?.featured_media?.node || {}
 }
 </script>
 

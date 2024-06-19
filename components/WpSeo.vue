@@ -30,9 +30,11 @@
 import getStripped from "~/utils/getStripped"
 
 // Queries
-import WP_SEO from "~/gql/queries/WpSeo.gql"
+//import WP_SEO from "~/gql/queries/WpSeo.gql"
 import { useStateStore } from "~/store/index.mjs"
+
 const store = useStateStore()
+
 export default {
     props: {
         title: {
@@ -70,7 +72,7 @@ export default {
 
         // Get data from API
         try {
-            const data = await this.$graphql.default.request(WP_SEO, {
+            const data = await this.$graphql.default.request('', {
                 uri: this.parsedUri
             })
             this.data = data.nodeByUri || {}
@@ -161,8 +163,8 @@ export default {
             }
             if (!output) {
                 output = getStripped(
-                    this,
-                    "$store.state.siteMeta.description",
+                    store,
+                    "siteMeta.description",
                     undefined
                 )
             }
@@ -177,11 +179,11 @@ export default {
             }
             if (!output) {
                 output =
-                    this.$store.state.siteMeta.socialSharedImage || undefined
+                    store.state.siteMeta.socialSharedImage || undefined
             }
             if (!output) {
                 output =
-                    this.$store.state.siteMeta.themeScreenshotUrl || undefined
+                    store.state.siteMeta.themeScreenshotUrl || undefined
             }
 
             // Use supplied image URL, or image from server, fallback to theme screenshot

@@ -18,11 +18,11 @@
 
 <script>
 // GQL
-import NEWS_DETAIL from "~/gql/queries/NewsDetail"
+//import NEWS_DETAIL from "~/gql/queries/NewsDetail"
 
 export default {
     async asyncData({ $graphql, route }) {
-        const data = await $graphql.default.request(NEWS_DETAIL, {
+        const data = await $graphql.default.request('', {
             uri: route.path
         })
 

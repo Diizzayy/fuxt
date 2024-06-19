@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import WP_CONTROLS from "~/gql/queries/WpControls"
+//import WP_CONTROLS from "~/gql/queries/WpControls"
 
 export default {
     props: {
@@ -66,7 +66,7 @@ export default {
     async fetch() {
         try {
             const data = await this.$graphql.default.request(
-                WP_CONTROLS,
+                '',
                 {
                     uri: this.parsedUri
                 },

@@ -26,11 +26,11 @@
 // Helpers
 
 // Queries
-import NEWS_LIST from "~/gql/queries/NewsList"
+//import NEWS_LIST from "~/gql/queries/NewsList"
 
 export default {
     async asyncData({ $graphql, route }) {
-        const data = await $graphql.default.request(NEWS_LIST, {
+        const data = await $graphql.default.request('', {
             categoryName: route.params.category || "",
             after: route.params.cursor
         })

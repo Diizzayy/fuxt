@@ -3,7 +3,7 @@
         <component
             :is="block.componentName"
             v-for="(block, i) in parsedBlocks"
-            v-if="block.isRegistered"
+            v-if="block?.isRegistered"
             :key="`gutenberg-block-${i}`"
             v-bind="block"
         />
@@ -56,6 +56,7 @@ export default {
         },
         parsedBlocks() {
             return this.blocks.map((obj) => {
+                console.log(obj);
                 return this.shapeBlock(obj)
             })
         }
@@ -222,11 +223,11 @@ export default {
         padding: 0 calc(var(--unit-gutter) * 2);
         line-height: 1.4;
 
-        ::v-deep li {
+        :deep(li) {
             margin: 0.5ch 0;
         }
         &.is-ul {
-            ::v-deep li {
+            :deep(li) {
                 padding-left: 1ch;
                 &::marker {
                     content: "—";
@@ -235,29 +236,25 @@ export default {
         }
     }
     .gutenberg-columns {
-        ::v-deep {
-            .gutenberg-column {
-                padding: 0 var(--unit-margin-small);
-                box-sizing: border-box;
+        :deep(.gutenberg-column) {
+            padding: 0 var(--unit-margin-small);
+            box-sizing: border-box;
 
-                .gutenberg-block {
-                    padding: 0;
-                }
+            .gutenberg-block {
+                padding: 0;
             }
         }
 
         @media #{$lt-phone} {
-            ::v-deep {
-                .gutenberg-column {
-                    margin-bottom: var(--unit-margin-small);
-                    padding: 0;
+            :deep(.gutenberg-column ) {
+                margin-bottom: var(--unit-margin-small);
+                padding: 0;
 
-                    &:last-child {
-                        margin-bottom: 0;
-                    }
-                    &.column-empty {
-                        display: none;
-                    }
+                &:last-child {
+                    margin-bottom: 0;
+                }
+                &.column-empty {
+                    display: none;
                 }
             }
         }
@@ -267,48 +264,41 @@ export default {
         padding: 0 var(--half-margin);
 
         &.mode-masonry {
-            ::v-deep {
-                .column {
-                    box-sizing: border-box;
-                    padding: 0 var(--half-margin);
-                }
-                .image {
-                    margin: var(--unit-margin-small) 0;
+            :deep(.column) {
+                box-sizing: border-box;
+                padding: 0 var(--half-margin);
+            }
+            .image {
+                margin: var(--unit-margin-small) 0;
 
-                    &:first-child {
-                        margin-top: 0;
-                    }
-                    &:last-child {
-                        margin-bottom: 0;
-                    }
+                &:first-child {
+                    margin-top: 0;
+                }
+                &:last-child {
+                    margin-bottom: 0;
                 }
             }
         }
+
         &.mode-cropped {
-            ::v-deep {
-                .image {
-                    margin-bottom: var(--unit-margin-small);
-                    padding: 0 var(--half-margin);
-                    box-sizing: border-box;
-                }
+            :deep(.image) {
+                margin-bottom: var(--unit-margin-small);
+                padding: 0 var(--half-margin);
+                box-sizing: border-box;
             }
         }
 
         // Breakpoints
         @media #{$lt-phone} {
             &.mode-masonry {
-                ::v-deep {
-                    .column {
-                        padding: 0;
-                    }
+                :deep(.column) {
+                    padding: 0;
                 }
             }
             &.mode-cropped {
-                ::v-deep {
-                    .image {
-                        padding: 0;
-                    }
-                }
+                :deep(.image) {
+                    padding: 0;
+                 }
             }
         }
     }
@@ -316,7 +306,7 @@ export default {
         max-width: var(--unit-max-width-medium);
         text-align: center;
 
-        ::v-deep {
+        :deep() {
             p {
                 margin: var(--unit-margin-small) auto;
                 font-size: 32px;
@@ -341,7 +331,7 @@ export default {
 
     // This is mostly used for legacy blog posts
     .gutenberg-freeform {
-        ::v-deep {
+        :deep() {
             img {
                 width: 100vw;
                 margin-left: 50%;

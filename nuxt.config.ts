@@ -1,11 +1,23 @@
+//@ts-check
 import { defineNuxtConfig } from 'nuxt/config'
 
 export default defineNuxtConfig({
     target: "static",
-    components: true,
+    future: {
+        compatibilityVersion: 4
+    },
+    vite: {
+        css: {
+            preprocessorOptions: {
+                scss: {
+                    additionalData: `@import "~/styles/_media-queries.scss";`
+                }
+            }
+        },
+    },
     runtimeConfig: {
         // Will be available in both server and client
-        GQL_ENDPOINT: '',
+        API_ENDPOINT: '',
         PROXY_BASE_URL: '',
     },
 
@@ -56,15 +68,13 @@ export default defineNuxtConfig({
         "~/styles/themes.scss"
         //"~/styles/fonts.css" // Be sure to turn on the font loader plugin and config it
     ],
-    builder: 'webpack',
-
     /*
      ** Build configuration
      */
-    build: {
-        transpile: ['nuxt-graphql-request'],
-    }
-    ,
+    // build: {
+    //     transpile: ['nuxt-graphql-request'],
+    // }
+    //,
     /*
      ** Plugins to load before mounting the App
      */
@@ -80,11 +90,12 @@ export default defineNuxtConfig({
     /*
      ** Nuxt.js modules
      */
-    modules: [//Not compatible with Vite builder
-        "@nuxtjs/style-resources", 
+    modules: [
+        "@nuxtjs/style-resources",
         '@pinia/nuxt',
         "~/modules/populate",
-        "nuxt-graphql-request", //"@nuxtjs/sitemap"
+        'nuxt-open-fetch',
+        //"@nuxtjs/sitemap"
         // [
         //     "nuxt-vuex-localstorage",
         //     {
@@ -93,11 +104,13 @@ export default defineNuxtConfig({
         //     },
         // ],
         "~/modules/sitemap-route-generator",
-        "nuxt-svgo"],
+        "nuxt-svgo"
+    ],
     /*
      ** SCSS that is injected into every component
      */
     styleResources: {
+        
         scss: ["./styles/_media-queries.scss"]
     },
     /*
@@ -107,22 +120,14 @@ export default defineNuxtConfig({
     //     ipStackKey: process.env.IPSTACK_KEY,
     // },
 
-    /*
-     ** GraphQL Request options.
-     ** See: https://github.com/Gomah/nuxt-graphql-request
-     */
-    graphql: {
+    openFetch: {
         clients: {
-            default: {
-                endpoint: import.meta.env.GQL_ENDPOINT,
-                options: {
-                    credentials: "include",
-                    mode: "cors"
-                }
+            wp: {
+                baseURL: 'http://fuxt-backend.local/wp-json/',
+                schema: 'http://fuxt-backend.local/wp-json-openapi?namespace=wp/v2'
             }
         }
     },
-
     /*
      ** Customize router
      */
@@ -143,8 +148,8 @@ export default defineNuxtConfig({
         // { handler: "~/server-middleware/preview-ssr.js" },
     ],
     hooks: {
-        'webpack:config':  (webpackConfigs) => {
-            
+        'webpack:config': (webpackConfigs) => {
+
             for (const config of webpackConfigs) {
 
                 config?.resolve?.extensions?.push(".gql", ".svg")
@@ -215,11 +220,5 @@ export default defineNuxtConfig({
                 ]
             }
         },
-        webpackFinal(config, { configDir }) {
-            // Allow webpack to auto-load .gql and .svg files
-            config.resolve.extensions.push(".gql", ".svg")
-
-            return config
-        }
     }
 })

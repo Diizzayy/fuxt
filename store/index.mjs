@@ -1,4 +1,4 @@
-import SITE_SETTINGS from "~/gql/queries/SiteSettings.gql"
+//import SITE_SETTINGS from "../gql/queries/SiteSettings.gql"
 import { defineStore } from 'pinia'
 
 // Define State defaults
@@ -67,7 +67,13 @@ export const actions = {
 
         // Get site settings from WordPress and save them to store
         try {
-            const data = await this.$graphql.default.request(SITE_SETTINGS)
+            //https://fuxt-backend.funkhaus.us/wp-json/wp/v2/
+            const { data, error } = await useWp('/settings}', {
+                path: {
+                  petId: 1
+                }
+              })
+           // const data = await this.$graphql.default.request(SITE_SETTINGS)
             const options = data.acfSettings?.siteOptionsMeta || {}
 
             // Get and shape general settings

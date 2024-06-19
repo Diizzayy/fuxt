@@ -1,32 +1,23 @@
 <template>
-    <ul
-        v-if="parsedItems.length"
-        :key="name"
-        :class="classes"
-    >
+    <ul v-if="parsedItems.length" :key="name" :class="classes">
         <slot name="before" />
 
-        <wp-menu-item
-            v-for="(item, i) in parsedItems"
-            :key="item.id || i"
-            class="menu-item"
-            :item="item"
-            @menu-interacted="menuInteracted"
-        />
+        <wp-menu-item v-for="(item, i) in parsedItems" :key="item.id || i" class="menu-item" :item="item"
+            @menu-interacted="menuInteracted" />
 
         <slot name="after" />
     </ul>
 </template>
 
-<script>
+<script lang="ts">
 // Helpers
 import _kebabCase from "lodash/kebabCase.js"
 import flatListToHierarchical from "~/utils/flatListToHierarchical"
 
 // GQL
-import MENU_BY_NAME from "~/gql/queries/MenuByName"
+//import MENU_BY_NAME from "~/gql/queries/MenuByName"
 
-export default {
+export default defineComponent({
     props: {
         name: {
             type: String,
@@ -51,9 +42,16 @@ export default {
         }
 
         try {
-            const data = await this.$graphql.default.request(MENU_BY_NAME, {
-                name: this.name
+            const { data } = await useWp('/pet/{petId}', {
+                path: {
+                    petId: 12
+                }
             })
+            console.log('data', data);
+
+            // const data = await this.$graphql.default.request(MENU_BY_NAME, {
+            //     name: this.name
+            // })
             this.menuItems = data?.menu?.menuItems?.nodes || []
             this.hasLoaded = true
             this.$emit("loaded")
@@ -86,5 +84,5 @@ export default {
             this.$emit("menu-interacted", event)
         }
     }
-}
+})
 </script>

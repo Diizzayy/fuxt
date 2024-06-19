@@ -56,7 +56,7 @@ export default {
     align-content: stretch;
     align-items: stretch;
 
-    ::v-deep > * {
+    :deep( > *) {
         width: 100%;
     }
 

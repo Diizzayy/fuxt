@@ -13,17 +13,17 @@ export default defineNuxtPlugin( function (context) {
     // Object.assign(Vue.config, { devtools: true })
 
     // Enable Nuxt Preview mode
-    if (query.preview) {
-        $graphql.default.setHeaders({ Preview: true })
-        enablePreview()
-    } else {
-        $graphql.default.setHeaders({})
-    }
+    // if (query?.preview) {
+    //     $graphql.default.setHeaders({ Preview: true })
+    //     enablePreview()
+    // } else {
+    //     $graphql.default.setHeaders({})
+    // }
 
-    // Populate Vuex when running in SPA mode (like for hidden pages or on Preview)
-    if (!store?.state?.siteMeta?.title || false) {
-        store.dispatch("nuxtGenerateInit", context)
-    }
+    // // Populate Vuex when running in SPA mode (like for hidden pages or on Preview)
+    // if (!store?.state?.siteMeta?.title || false) {
+    //     store.dispatch("nuxtGenerateInit", context)
+    // }
 
     // Can handle some redirects here if Preview URLs are different than frontend.
     // Use things like Boolean(query.preview) && Boolean(query.uri) to redirect() to desired frotnend routes.

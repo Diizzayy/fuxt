@@ -18,14 +18,14 @@ export default defineNuxtPlugin(({ vueApp: {
     // Abort if no codes
     if (!codes.length) {
         if (import.meta.dev) console.log("No Google Anlaytics tracking codes set")
-        $inject("gtag", () => { })
+        //$inject("gtag", () => { })
         return
     }
 
     // Abort if in Dev mode, but inject dummy functions so $gtag events don't throw errors
     if (import.meta.dev) {
         console.log("No Google Anlaytics tracking becuase your are in Dev mode")
-        $inject("gtag", () => { })
+        //$inject("gtag", () => { })
         return
     }
 
@@ -48,7 +48,7 @@ export default defineNuxtPlugin(({ vueApp: {
         dataLayer.push(arguments)
     }
 
-    $inject("gtag", gtag)
+    //$inject("gtag", gtag)
     gtag("js", new Date())
 
     // Add tracking codes from Vuex store

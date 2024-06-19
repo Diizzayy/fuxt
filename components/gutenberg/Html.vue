@@ -93,7 +93,7 @@ export default {
         z-index: 0;
     }
     &.has-aspect-ratio {
-        ::v-deep iframe {
+        :deep(iframe) {
             position: absolute;
             top: 0;
             left: 0;
@@ -103,7 +103,7 @@ export default {
         }
     }
     &:not(.has-aspect-ratio) {
-        ::v-deep iframe {
+        :deep(iframe) {
             margin-left: auto;
             margin-right: auto;
             display: block;

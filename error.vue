@@ -11,7 +11,8 @@
             v-if="error.message"
             v-text="error.message"
         />
-
+        <div v-if="error.stack" v-html="error.stack" />
+        
         <nuxt-link to="/">
             Back to the home page
         </nuxt-link>

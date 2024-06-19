@@ -1,53 +1,18 @@
 <template>
     <figure :class="classes">
-        <img
-            v-if="parsedSrc && !disabled"
-            ref="img"
-            class="media media-image"
-            :src="parsedSrc"
-            :srcset="parsedSrcset"
-            :sizes="parsedSizes"
-            :style="mediaStyles"
-            :alt="parsedAlt"
-            :height="parsedHeight"
-            :width="parsedWidth"
-            @load="onLoaded('image')"
-            @error="onError('image')"
-        >
+        <img v-if="parsedSrc && !disabled" ref="img" class="media media-image" :src="parsedSrc" :srcset="parsedSrcset"
+            :sizes="parsedSizes" :style="mediaStyles" :alt="parsedAlt" :height="parsedHeight" :width="parsedWidth"
+            @load="onLoaded('image')" @error="onError('image')">
 
-        <video
-            v-if="isVideo && !disabled"
-            ref="video"
-            class="media media-video"
-            preload="none"
-            :src="parsedVideoUrl"
-            :style="mediaStyles"
-            :loop="loop"
-            :autoplay="autoplay"
-            :muted="muted"
-            :playsinline="playsinline"
-            :disablePictureInPicture="disablePictureinPicture"
-            @loadeddata="onLoaded('video')"
-            @error="onError('video')"
-            @ended="onEnded"
-            @playing="onPlaying"
-            @pause="onPause"
-        />
+        <video v-if="isVideo && !disabled" ref="video" class="media media-video" preload="none" :src="parsedVideoUrl"
+            :style="mediaStyles" :loop="loop" :autoplay="autoplay" :muted="muted" :playsinline="playsinline"
+            :disablePictureInPicture="disablePictureinPicture" @loadeddata="onLoaded('video')" @error="onError('video')"
+            @ended="onEnded" @playing="onPlaying" @pause="onPause" />
 
-        <div
-            class="sizer"
-            :style="sizerStyles"
-        />
-        <div
-            class="background-color"
-            :style="backgroundStyles"
-        />
+        <div class="sizer" :style="sizerStyles" />
+        <div class="background-color" :style="backgroundStyles" />
 
-        <figcaption
-            v-if="parsedCaption"
-            class="caption"
-            v-html="parsedCaption"
-        />
+        <figcaption v-if="parsedCaption" class="caption" v-html="parsedCaption" />
 
         <slot />
     </figure>
@@ -55,8 +20,6 @@
 
 <script>
 // Helpers
-import Vue from "vue"
-
 export default {
     props: {
         image: {
@@ -313,15 +276,15 @@ export default {
         // Update loaded state if new src set
         parsedVideoUrl(newVal) {
             if (newVal) {
-                Vue.set(this.loadedStatus, "video", false)
-                Vue.set(this.errorStatus, "video", false)
+                this.loadedStatus["video"] = false
+                this.errorStatus["video"] = false
             }
         },
         // Update loaded state if new src set
         parsedSrc(newVal) {
             if (newVal) {
-                Vue.set(this.loadedStatus, "image", false)
-                Vue.set(this.errorStatus, "image", false)
+                this.loadedStatus["image"] = false
+                this.errorStatus["image"] = false
             }
         },
         disabled(newVal) {
@@ -346,18 +309,10 @@ export default {
         init() {
             // Setup loaded state tracking
             if (this.parsedVideoUrl) {
-                Vue.set(
-                    this.loadedStatus,
-                    "video",
-                    this.$refs.video?.readyState >= 3 || false
-                )
+                this.loadedStatus["video"] = this.$refs.video?.readyState >= 3 || false
             }
             if (this.parsedSrc) {
-                Vue.set(
-                    this.loadedStatus,
-                    "image",
-                    this.$refs.img?.complete || false
-                )
+                this.loadedStatus["image"] = this.$refs.img?.complete || false
             }
 
             // Intersection Observer
@@ -367,16 +322,16 @@ export default {
             this.observer.observe(this.$el)
 
             // Set the booted flag
-            Vue.set(this.loadedStatus, "booted", true)
+            this.loadedStatus["booted"] = true
             this.$emit("orientation", this.orientation)
         },
         onLoaded(type) {
-            Vue.set(this.loadedStatus, type, true)
+            this.loadedStatus[type] = true
             this.$emit("loaded", type)
             this.$emit(`loaded-${type}`)
         },
         onError(type) {
-            Vue.set(this.errorStatus, type, true)
+            this.errorStatus[type] = true
             this.$emit("error", type)
             this.$emit(`error-${type}`)
         },
@@ -449,6 +404,7 @@ export default {
 
         z-index: 0;
     }
+
     .background-color {
         opacity: 0.2;
         z-index: 0;
@@ -458,6 +414,7 @@ export default {
         top: 0;
         left: 0;
     }
+
     .media {
         width: 100%;
         height: 100%;
@@ -468,9 +425,11 @@ export default {
         transition: opacity 0.4s ease-in-out;
         z-index: 10;
     }
+
     .media-video {
         z-index: 20;
     }
+
     .caption {
         display: none;
     }
@@ -479,6 +438,7 @@ export default {
     &:where(.mode-intrinsic-ratio, .mode-cover) {
         position: relative;
     }
+
     &.mode-cover {
         .sizer {
             width: 100%;
@@ -493,6 +453,7 @@ export default {
     &.object-fit-cover .media {
         object-fit: cover;
     }
+
     &.object-fit-contain .media {
         object-fit: contain;
     }
@@ -503,11 +464,13 @@ export default {
             opacity: 1;
         }
     }
+
     &.is-playing {
         .media-image {
             // Hide image when video is playing to avoid overlaps
             opacity: 0;
         }
+
         .media-video {
             opacity: 1;
         }
@@ -526,9 +489,11 @@ export default {
         .media {
             opacity: 1;
         }
+
         &.has-image-error .media-image {
             opacity: 0;
         }
+
         &.has-video-error .media-video {
             opacity: 0;
         }
